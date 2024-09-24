@@ -10,11 +10,24 @@
             text-align: center;
             margin: 20px;
         }
-
         #numbers {
             margin-top: 20px;
             font-size: 24px;
             font-weight: bold;
+        }
+       
+        #check {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: center;
+            color: #666;
+            border: 1px solid black;
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         #generate-button {
@@ -23,120 +36,85 @@
             cursor: pointer;
         }
 
-        #pari, #dispari {
-            margin-top: 10px;
-            padding: 10px;
-            font-size: 30px;
-            color: white;
-        }
-
-        #pari {
-            height: 200px;
-            width: 200px;
-            background-color: rgb(4, 0, 128);
-            display: none;
-        }
-
-        #dispari {
-            height: 200px;
-            width: 200px;
-            background-color: rgb(255, 0, 0);
-            display: none;
-        }
-
-        #primo, #nonPrimo {
-            margin-top: 10px;
-            padding: 10px;
-            font-size: 30px;
-            color: white;
-        }
-
-        #numbers2 {
-            margin-top: 20px;
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        #pari2, #dispari2 {
-            margin-top: 10px;
-            padding: 10px;
-            font-size: 30px;
-            color: white;
-        }
-
-        #pari2 {
-            height: 200px;
-            width: 200px;
-            background-color: rgb(4, 0, 128);
-            display: none;
-        }
-
-        #dispari2 {
-            height: 200px;
-            width: 200px;
-            background-color: rgb(255, 0, 0);
-            display: none;
-        }
-
         #difference {
             margin-top: 20px;
-            padding: 10px;
-            font-size: 24px;
-            font-weight: bold;
+            font-size: 18px;
+            text-align: center;
+            color: #fff;
             background-color: #ccc;
-            border: 1px solid #aaa;
-            border-radius: 5px;
+            padding: 10px;
+            border: 1px solid black;
+            width: 200px;
+            height: 30px;
+            margin: 20px auto;
         }
     </style>
 </head>
 <body>
     <h1>Generatore di Numeri Casuali</h1>
-    <button id="generate-button">Genera Numeri Casuali</button>
+    <button id="generate-button">Genera Numero Casuale</button>
     <div id="numbers"></div>
-    <div id="pari">Il numero è pari!</div>
-    <div id="dispari">Il numero è dispari!</div>
+    <div id="check">Verifica se pari o dispari</div>
+    <div id="prime-check">Verifica se primo</div>
     <div id="numbers2"></div>
-    <div id="pari2">Il numero è pari!</div>
-    <div id="dispari2">Il numero è dispari!</div>
+    <div id="check2">Verifica se pari o dispari</div>
+    <div id="prime-check2">Verifica se primo</div>
     <div id="difference"></div>
 
     <script>
+        // Funzione per generare un numero casuale tra 1 e 100
         function getRandomNumber() {
-            return Math.floor(Math.random() * 100) + 1;            
+            return Math.floor(Math.random() * 100) + 1;
         }
-
+       
+        // Funzione per aggiornare il contenuto della pagina
         function updateNumbers() {
             const numbersDiv = document.getElementById('numbers');
+            const checkDiv = document.getElementById('check');
+            const primeCheckDiv = document.getElementById('prime-check');
             const numbersDiv2 = document.getElementById('numbers2');
+            const checkDiv2 = document.getElementById('check2');
+            const primeCheckDiv2 = document.getElementById('prime-check2');
             const differenceDiv = document.getElementById('difference');
             const randomNumber = getRandomNumber();
             const randomNumber2 = getRandomNumber();
             numbersDiv.textContent = `Numero Casuale 1: ${randomNumber}`;
             numbersDiv2.textContent = `Numero Casuale 2: ${randomNumber2}`;
-
-            const pariDiv = document.getElementById('pari');
-            const dispariDiv = document.getElementById('dispari');
-            const pariDiv2 = document.getElementById('pari2');
-            const dispariDiv2 = document.getElementById('dispari2');
-            const primo = isPrime(randomNumber);
-            const primo2 = isPrime(randomNumber2);
-            pariDiv.innerHTML='Il numero è pari!';
-            dispariDiv.innerHTML='Il numero è dispari!';
-            pariDiv2.innerHTML='Il numero è pari!';
-            dispariDiv2.innerHTML='Il numero è dispari!';
-
             if (randomNumber % 2 === 0) {
-                if(primo){
-                   pariDiv.innerHTML+="<br><br>  è primo";
-                }
-                else{
-                    pariDiv.innerHTML+="<br><br>  non è primo";
-                }
-                pariDiv.style.display = 'block';
-                dispariDiv.style.display = 'none';
+                checkDiv.textContent = `Il numero è pari`;
             } else {
-                if(primo){
-                   dispariDiv.innerHTML+="<br><br>  è primo";
-                }
-                else{
-                   dispariDiv.innerHTML+="<br><br
+                checkDiv.textContent = `Il numero è dispari`;
+            }
+            if (isPrime(randomNumber)) {
+                primeCheckDiv.textContent = `Il numero è primo`;
+            } else {
+                primeCheckDiv.textContent = `Il numero non è primo`;
+            }
+            if (randomNumber2 % 2 === 0) {
+                checkDiv2.textContent = `Il numero è pari`;
+            } else {
+                checkDiv2.textContent = `Il numero è dispari`;
+            }
+            if (isPrime(randomNumber2)) {
+                primeCheckDiv2.textContent = `Il numero è primo`;
+            } else {
+                primeCheckDiv2.textContent = `Il numero non è primo`;
+            }
+            const difference = Math.abs(randomNumber - randomNumber2);
+            differenceDiv.textContent = `Differenza: ${difference}`;
+        }
+
+        // Funzione per controllare se un numero è primo
+        function isPrime(num) {
+            if (num <= 1) return false; // 0 e 1 non sono primi
+            for (let i = 2; i <= Math.sqrt(num); i++) {
+                if (num % i === 0) return false; // Divisibile per un numero diverso da 1 e se stesso
+            }
+            return true; // È primo
+        }
+       
+        // Aggiunge un event listener al pulsante
+        document.getElementById('generate-button').addEventListener('click', updateNumbers);
+    </script>
+</body>
+</html>
