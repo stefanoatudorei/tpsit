@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generatore di Numeri Casuali</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        #numbers {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        #generate-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #pari, #dispari {
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 30px;
+            color: white;
+        }
+
+        #pari {
+            height: 200px;
+            width: 200px;
+            background-color: rgb(4, 0, 128);
+            display: none;
+        }
+
+        #dispari {
+            height: 200px;
+            width: 200px;
+            background-color: rgb(255, 0, 0);
+            display: none;
+        }
+
+        #primo, #nonPrimo {
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 30px;
+            color: white;
+        }
+
+        #numbers2 {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        #pari2, #dispari2 {
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 30px;
+            color: white;
+        }
+
+        #pari2 {
+            height: 200px;
+            width: 200px;
+            background-color: rgb(4, 0, 128);
+            display: none;
+        }
+
+        #dispari2 {
+            height: 200px;
+            width: 200px;
+            background-color: rgb(255, 0, 0);
+            display: none;
+        }
+
+        #difference {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            background-color: #ccc;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Generatore di Numeri Casuali</h1>
+    <button id="generate-button">Genera Numeri Casuali</button>
+    <div id="numbers"></div>
+    <div id="pari">Il numero è pari!</div>
+    <div id="dispari">Il numero è dispari!</div>
+    <div id="numbers2"></div>
+    <div id="pari2">Il numero è pari!</div>
+    <div id="dispari2">Il numero è dispari!</div>
+    <div id="difference"></div>
+
+    <script>
+        function getRandomNumber() {
+            return Math.floor(Math.random() * 100) + 1;            
+        }
+
+        function updateNumbers() {
+            const numbersDiv = document.getElementById('numbers');
+            const numbersDiv2 = document.getElementById('numbers2');
+            const differenceDiv = document.getElementById('difference');
+            const randomNumber = getRandomNumber();
+            const randomNumber2 = getRandomNumber();
+            numbersDiv.textContent = `Numero Casuale 1: ${randomNumber}`;
+            numbersDiv2.textContent = `Numero Casuale 2: ${randomNumber2}`;
+
+            const pariDiv = document.getElementById('pari');
+            const dispariDiv = document.getElementById('dispari');
+            const pariDiv2 = document.getElementById('pari2');
+            const dispariDiv2 = document.getElementById('dispari2');
+            const primo = isPrime(randomNumber);
+            const primo2 = isPrime(randomNumber2);
+            pariDiv.innerHTML='Il numero è pari!';
+            dispariDiv.innerHTML='Il numero è dispari!';
+            pariDiv2.innerHTML='Il numero è pari!';
+            dispariDiv2.innerHTML='Il numero è dispari!';
+
+            if (randomNumber % 2 === 0) {
+                if(primo){
+                   pariDiv.innerHTML+="<br><br>  è primo";
+                }
+                else{
+                    pariDiv.innerHTML+="<br><br>  non è primo";
+                }
+                pariDiv.style.display = 'block';
+                dispariDiv.style.display = 'none';
+            } else {
+                if(primo){
+                   dispariDiv.innerHTML+="<br><br>  è primo";
+                }
+                else{
+                   dispariDiv.innerHTML+="<br><br
